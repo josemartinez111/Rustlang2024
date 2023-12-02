@@ -1,0 +1,14 @@
+# ___________________________________________________________
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+# ___________________________________________________________
+
+members = [
+    "axum-app2024",
+]
+
+resolver = "2"
+
+[lints]
+workspace = true
+# ___________________________________________________________
