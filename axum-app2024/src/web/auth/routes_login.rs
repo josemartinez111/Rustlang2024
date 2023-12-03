@@ -5,10 +5,9 @@ use axum::{Json, Router};
 use axum::routing::post;
 use serde::Deserialize;
 use serde_json::{json, Value};
-use yansi::Color::Blue;
 
 use crate::utils::error::{Error, Result};
-use crate::utils::utilities::bg_paint;
+use crate::utils::utilities::debug_print;
 // ___________________________________________________________
 
 #[derive(Debug, Deserialize)]
@@ -24,7 +23,11 @@ pub fn routes() -> Router {
 // ___________________________________________________________
 
 pub async fn api_login(payload: Json<LoginPayload>) -> Result<Json<Value>> {
-  println!("--> {:<12} - api_login", bg_paint(Blue, "HANDLER".to_string()));
+  debug_print(
+    "HANDLER".to_owned(),
+    "api_login".to_owned(),
+    "200_OK-->SUCCESS".to_owned(),
+  );
 
   // Convert `username` and `password` from String to &str (slice reference)
   // and match. This allows for efficient comparison without taking ownership.

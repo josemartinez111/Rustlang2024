@@ -1,5 +1,6 @@
 // FILE: ./lib.rs
 // ___________________________________________________________
+// ___________________________________________________________
 
 pub mod utils {
   pub mod error;
@@ -16,10 +17,10 @@ pub mod web {
     pub mod routes_login;
   }
 
+  pub mod start_app;
   pub mod routes;
   pub mod run_server;
 }
-
 // ___________________________________________________________
 
 pub mod models {

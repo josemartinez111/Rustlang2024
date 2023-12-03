@@ -1,40 +1,31 @@
 // main.rs
 // ________________________________________________________
 
-use std::io::Error;
-
-use axum::Router;
-use tokio::net::TcpListener;
-
+use axum::response::Response;
 use axum_app2024::{
   utils::utilities::format_print,
-  web::auth::routes_login,
+  web::start_app::start_app,
 };
-use axum_app2024::web::{
-  routes::{routers, tower_routes_static},
-  run_server::run_server,
-};
+use axum_app2024::utils::utilities::debug_print;
+// ________________________________________________________
+
+#[allow(dead_code)]
+async fn main_response_mapper(response: Response) -> Response {
+  debug_print(
+    "main_response_mapper".to_owned(),
+    "RES_MAPPER".to_owned(),
+    "".to_owned()
+  );
+  response
+}
 // ________________________________________________________
 
 #[tokio::main]
 async fn main() {
   format_print("_", 45);
   // __________________________________________________
-  env_logger::init();
-  // Our router
-  let all_routes = Router::new()
-    .merge(routers())
-    .merge(routes_login::routes())
-    .fallback_service(tower_routes_static());
 
-  // Start the server
-  let listener = TcpListener::bind("127.0.0.1:8080").await
-    .unwrap_or_else(|err: Error| {
-      eprintln!("Failed to bind to port 8080: {}", err);
-      std::process::exit(1);
-    });
-
-  run_server(all_routes, listener).await;
+  start_app().await;
   // __________________________________________________
   format_print("_", 45);
 }
