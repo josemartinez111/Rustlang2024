@@ -1,8 +1,6 @@
 // FILE: utils/errors.rs
 // ___________________________________________________________
 
-use std::fmt::Display;
-
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 
@@ -11,7 +9,7 @@ pub type Result<T> = core::result::Result<T, Error>;
 
 #[derive(Debug)]
 pub enum Error {
-  LoginFail,
+  InvalidCredentials,
 }
 // ___________________________________________________________
 
