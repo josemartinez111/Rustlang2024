@@ -2,7 +2,7 @@
 // ____________________________________________________
 
 use yansi::{Color, Paint, Style};
-use yansi::Color::{Black};
+use yansi::Color::{Black, Blue, Magenta, Yellow};
 
 pub type Void = ();
 // ____________________________________________________
@@ -14,6 +14,19 @@ pub fn format_print(arg: &str, num: usize) -> Void {
 
 pub fn bg_paint(bg_color: Color, str_arg: String) -> Paint<String> {
   let style = Style::new(Black).bold().bg(bg_color).underline();
-  Paint::new(str_arg).with_style(style)
+  let result = Paint::new(str_arg).with_style(style);
+  result
+}
+// ____________________________________________________
+
+pub fn debug_print(str_args: String, painted_str: String, paint_params: String) {
+  let formatted_result = format!(
+    "--> {:<12} - {:<12} - {:<5}",
+    bg_paint(Magenta, str_args),
+    bg_paint(Yellow, painted_str),
+    bg_paint(Blue, paint_params),
+  );
+
+  println!("{}",formatted_result);
 }
 // ____________________________________________________
