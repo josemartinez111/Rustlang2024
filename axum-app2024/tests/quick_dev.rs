@@ -4,6 +4,7 @@
 use anyhow::Result;
 use chrono::{DateTime, FixedOffset};
 use httpc_test::{Client, Response};
+use serde_json::json;
 
 // ___________________________________________________________
 
@@ -14,6 +15,15 @@ async fn quick_dev() -> Result<()> {
   let response: Response = http_client.do_get("/health_check?name=OK").await?;
   let response2: Response = http_client.do_get("/health_check2/Alias111").await?;
   // let main_response: Response = http_client.do_get("/src/main.rs").await?;
+
+  // Testing login
+  let req_login = http_client.do_post(
+    "/api/login",
+    json!({
+      "username": "admin",
+      "pwd": "alias111"
+    })
+  );
 
   // Parse and print the date header in EST
   if let Some(date_header) = response.header("date") {
@@ -33,6 +43,7 @@ async fn quick_dev() -> Result<()> {
   response.print().await?;
   response2.print().await?;
   // main_response.print().await?;
+  req_login.await?.print().await?;
   Ok(())
 }
 // ___________________________________________________________

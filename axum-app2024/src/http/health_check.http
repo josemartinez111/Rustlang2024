@@ -3,5 +3,5 @@ GET http://localhost:8080/health_check
 Accept: application/json
 
 ### GET request
-GET http://localhost:8080/health_check2
+GET http://localhost:8080/health_check2/:name
 Accept: application/json

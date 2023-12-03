@@ -15,7 +15,7 @@ watch:
 
 test:
 	@echo "Running watch for tests in $(PROJECT)"
-	@cd $(PROJECT) && cargo watch -q -c -w tests/ -x "test -q quick_dev -- --nocapture"
+	@cd $(PROJECT) && cargo watch -q -c -w src/ -w tests/ -x "test -q quick_dev -- --nocapture"
 # ___________________________________________________________
 
 # Add package to project with features
