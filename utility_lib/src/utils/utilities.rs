@@ -3,6 +3,7 @@
 
 use yansi::{Color, Paint, Style};
 use yansi::Color::{Black, Blue, Magenta, Yellow};
+// _______________________________________________
 
 pub type Void = ();
 // ____________________________________________________
@@ -15,6 +16,7 @@ pub fn format_print(arg: &str, num: usize) -> Void {
 pub fn bg_paint(bg_color: Color, str_arg: String) -> Paint<String> {
   let style = Style::new(Black).bold().bg(bg_color).underline();
   let result = Paint::new(str_arg).with_style(style);
+  #[allow(clippy::let_and_return)]
   result
 }
 // ____________________________________________________
@@ -27,6 +29,6 @@ pub fn debug_print(str_args: String, painted_str: String, paint_params: String) 
     bg_paint(Blue, paint_params),
   );
 
-  println!("{}",formatted_result);
+  println!("{}", formatted_result);
 }
 // ____________________________________________________

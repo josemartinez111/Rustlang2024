@@ -5,10 +5,9 @@
 
 members = [
     "axum-app2024",
+    "example-code",
+    "utility_lib"
 ]
 
 resolver = "2"
-
-[lints]
-workspace = true
 # ___________________________________________________________

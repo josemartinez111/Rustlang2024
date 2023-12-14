@@ -4,13 +4,11 @@
 use std::io::Error;
 use std::net::SocketAddr;
 
-use axum::Router;
+use utility_lib::axum::Router;
 use log::info;
 use tokio::net::TcpListener;
-use yansi::Color::{Blue, Yellow};
-
-use crate::utils::utilities::bg_paint;
-
+use utility_lib::utils::utilities::bg_paint;
+use utility_lib::yansi::Color::{Blue, Yellow};
 // ___________________________________________________________
 
 pub async fn run_server(all_routes: Router, listener: TcpListener) {
@@ -26,7 +24,7 @@ pub async fn run_server(all_routes: Router, listener: TcpListener) {
   info!("\n\n{}{}",prefix, addrs);
 
   // Serve the application and handle any error
-  if let Err(err) = axum::serve(listener, all_routes.into_make_service())
+  if let Err(err) = utility_lib::axum::serve(listener, all_routes.into_make_service())
     .await {
     eprintln!("Failed to start server: {}", err);
   }

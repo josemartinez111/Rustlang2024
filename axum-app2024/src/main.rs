@@ -1,12 +1,9 @@
-// main.rs
+// ticket_example
 // ________________________________________________________
 
-use axum::response::Response;
-use axum_app2024::{
-  utils::utilities::format_print,
-  web::start_app::start_app,
-};
-use axum_app2024::utils::utilities::debug_print;
+use axum_app2024::web::start_app::start_app;
+use utility_lib::axum::response::Response;
+use utility_lib::utils::utilities::{debug_print, format_print};
 // ________________________________________________________
 
 #[allow(dead_code)]
@@ -14,8 +11,9 @@ async fn main_response_mapper(response: Response) -> Response {
   debug_print(
     "main_response_mapper".to_owned(),
     "RES_MAPPER".to_owned(),
-    "".to_owned()
+    "".to_owned(),
   );
+
   response
 }
 // ________________________________________________________
