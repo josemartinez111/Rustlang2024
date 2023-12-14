@@ -3,7 +3,7 @@
 
 use std::io::Error;
 
-use axum::Router;
+use utility_lib::axum::Router;
 use tokio::net::TcpListener;
 
 use crate::web::auth::routes_login;

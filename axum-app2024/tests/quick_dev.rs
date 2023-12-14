@@ -14,7 +14,7 @@ async fn quick_dev() -> Result<()> {
   let http_client: Client = httpc_test::new_client("http://localhost:8080")?;
   let response: Response = http_client.do_get("/health_check?name=OK").await?;
   let response2: Response = http_client.do_get("/health_check2/Alias111").await?;
-  // let main_response: Response = http_client.do_get("/src/main.rs").await?;
+  // let main_response: Response = http_client.do_get("/src/ticket_example").await?;
 
   // Testing login
   let req_login = http_client.do_post(

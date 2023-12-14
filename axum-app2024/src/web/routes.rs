@@ -1,8 +1,8 @@
 // FILE: web/routes.rs
 // ___________________________________________________________
 
-use axum::Router;
-use axum::routing::{get, get_service};
+use utility_lib::axum::Router;
+use utility_lib::axum::routing::{get, get_service};
 use tower_http::services::ServeDir;
 use super::handlers::health_check::{health_check, health_check2};
 // ___________________________________________________________
