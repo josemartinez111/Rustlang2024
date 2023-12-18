@@ -2,14 +2,10 @@
 // ________________________________________________________
 
 use iso_currency::Currency;
+use crate::models::ticket::{BackStage, print_ticket_info, Standard, TicketType, Vip};
 
-use example_code::models::ticket::{
-  BackStage,
-  print_ticket_info,
-  Standard,
-  TicketType,
-  Vip,
-};
+mod models;
+mod utils;
 
 // ________________________________________________________
 

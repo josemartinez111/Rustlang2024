@@ -1,24 +1,15 @@
 // FILE: utils/helpers.rs
 // ___________________________________________________________
 
-use std::fmt::Display;
 use std::io::Error;
 
-use color_print::cprintln;
 use iso_currency::Currency;
 use serde_json::json;
+
+use utility_lib::utils::utilities::{to_json_with_prefix, Void};
 // ___________________________________________________________
 
-fn color_format<Type: Display>(prefix: &str, data: Type) {
-  cprintln!(
-        "<bold, white!><underline>{}</underline></bold, white!>: \
-         <bold, blue>{}</bold, blue>",
-        prefix,
-        data
-    );
-}
-
-pub fn ticket_to_json(ticket_type: &str, concert_name: &str, buyer_name: &str, price: &str) -> Result<(), Error> {
+pub fn ticket_to_json(ticket_type: &str, concert_name: &str, buyer_name: &str, price: &str) -> Result<Void, Error> {
   let res_data = json!({
         ticket_type: {
             "Concert-Name": concert_name,
@@ -27,19 +18,8 @@ pub fn ticket_to_json(ticket_type: &str, concert_name: &str, buyer_name: &str, p
         }
     });
 
-  match serde_json::to_string_pretty(&res_data) {
-    Ok(ticket_data) => {
-      color_format("Listing offers Ticket TypesPurchased", ticket_data);
-      Ok(())
-    }
-    Err(err) => {
-      eprintln!("Error converting ticket to JSON: {}", err);
-      // `into()`: Calls U::from(self).
-      // this converts the error from
-      // `serde_json::error::Error` to `use std::io::Error;`
-      Err(err.into())
-    }
-  }
+  to_json_with_prefix("Listing offers Ticket TypesPurchased", &res_data)?;
+  Ok(())
 }
 // ___________________________________________________________
 
