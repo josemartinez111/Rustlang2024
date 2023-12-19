@@ -18,6 +18,11 @@ pub type Void = ();
 pub fn format_print(arg: &str, num: usize) -> Void {
   cprintln!("<bold, b!>{}</bold, b!>\n", arg.repeat(num));
 }
+
+pub fn code_spacer() {
+  format_print("*", 45);
+  println!();
+}
 // ____________________________________________________
 
 pub fn color_format<Type: Display>(prefix: &str, data: Type) {
@@ -57,12 +62,13 @@ pub fn to_json_with_prefix<Type: Serialize>(prefix: &str, data: &Type) -> Result
 }
 // ____________________________________________________
 
-/// `format_price_with_currency` Define a function to format the price with currency symbol
+/// `format_price_with_currency_f64` Define a function to format the price with currency symbol
 pub fn format_price_with_currency_f64(currency: &Currency, price: f64) -> String {
   let currency_symbol = currency.symbol().to_string();
   format!("{}{}", currency_symbol, price)
 }
 
+/// `format_price_with_currency_str` Define a function to format the price with currency symbol
 pub fn format_price_with_currency_str(currency: &Currency, price: String) -> String {
   let currency_symbol = currency.symbol().to_string();
   format!("{}{}", currency_symbol, price)
