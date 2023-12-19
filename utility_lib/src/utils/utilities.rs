@@ -5,6 +5,7 @@ use std::fmt::Display;
 use std::io::Error;
 
 use color_print::cprintln;
+use iso_currency::Currency;
 use serde::Serialize;
 use yansi::{Color, Paint, Style};
 use yansi::Color::{Black, Blue, Magenta, Yellow};
@@ -53,6 +54,18 @@ pub fn to_json_with_prefix<Type: Serialize>(prefix: &str, data: &Type) -> Result
   let serialized_data = serde_json::to_string_pretty(data)?;
   color_format(prefix, serialized_data.to_owned());
   Ok(serialized_data)
+}
+// ____________________________________________________
+
+/// `format_price_with_currency` Define a function to format the price with currency symbol
+pub fn format_price_with_currency_f64(currency: &Currency, price: f64) -> String {
+  let currency_symbol = currency.symbol().to_string();
+  format!("{}{}", currency_symbol, price)
+}
+
+pub fn format_price_with_currency_str(currency: &Currency, price: String) -> String {
+  let currency_symbol = currency.symbol().to_string();
+  format!("{}{}", currency_symbol, price)
 }
 // ____________________________________________________
 

@@ -27,5 +27,8 @@ pub use serde_json;
 // Has to export yansi to other projects with the `use` keyword instead of `mod`
 pub use yansi;
 // ____________________________________________________
+// Has to export iso_currency to other projects with the `use` keyword instead of `mod`
+pub use iso_currency;
+// ____________________________________________________
 pub mod utils;
 // ____________________________________________________

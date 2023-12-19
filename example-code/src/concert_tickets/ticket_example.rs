@@ -1,7 +1,7 @@
 // ticket_example.rs
 // ________________________________________________________
 
-use iso_currency::Currency;
+use utility_lib::iso_currency::Currency;
 use crate::models::ticket::{BackStage, print_ticket_info, Standard, TicketType, Vip};
 
 mod models;
