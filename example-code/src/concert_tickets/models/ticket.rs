@@ -2,7 +2,7 @@
 // ___________________________________________________________
 
 use std::io::Error;
-use iso_currency::Currency;
+use utility_lib::iso_currency::Currency;
 use utility_lib::utils::utilities::Void;
 use crate::utils::helpers::output_result;
 // ___________________________________________________________
@@ -38,6 +38,7 @@ impl Vip {
 }
 // ___________________________________________________________
 
+#[allow(clippy::enum_variant_names)]
 pub enum TicketType {
   BackStageTicket(BackStage),
   StandardTicket(Standard),

@@ -1,8 +1,18 @@
-// FILE: stock_trading_backend/models/models.rs
+// FILE: stock_trading_backend/models/mod.rs
 // ____________________________________________________
 
-pub mod user;
+pub mod account {
+  pub mod user;
+  pub mod account_status;
+}
 // ____________________________________________________
 
-pub mod trade_account;
+pub mod trading {
+  pub mod trade_account;
+  pub mod stock;
+  pub mod order;
+}
+// ____________________________________________________
+
+pub mod audit_log;
 // ____________________________________________________
