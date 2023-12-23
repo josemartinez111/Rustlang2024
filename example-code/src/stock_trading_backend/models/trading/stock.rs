@@ -1,8 +1,8 @@
 // FILE: trading/stock.rs
 // ___________________________________________________________
 
+use std::fmt::{Display, Formatter};
 use serde::{Deserialize, Serialize};
-
 use utility_lib::iso_currency::Currency;
 use utility_lib::utils::utilities::format_price_with_currency_str;
 // ___________________________________________________________
@@ -12,7 +12,7 @@ pub struct Stock {
   pub symbol: String,
   pub name: String,
   pub current_price: f64,
-  pub formatted_current_price: String,
+  pub quantity_owned: i32,
 }
 // ___________________________________________________________
 
@@ -22,30 +22,37 @@ impl Stock {
       symbol: symbol.into(),
       name: name.into(),
       current_price,
-      formatted_current_price: format_price_with_currency_str(
-        &Currency::USD, // using `USD->$` currency symbol
-        format!("{:.2}", current_price), // converted `price` from `f64` to a `String`
-      ),
+      quantity_owned: 0, // Initialize the quantity owned to 0
     }
   }
-
-  // /// Creates a new `Stock` instance wrapped in an `Arc`
-  // /// for thread-safe shared access in web applications.
-  // /// Use this for efficient concurrent handling of
-  // /// `Stock` data without cloning for each request.
-  // ///
-  // /// # Arguments
-  // /// * `symbol` - The stock symbol.
-  // /// * `name` - The company name.
-  // /// * `current_price` - The current stock price.
-  // ///
-  // /// # Returns
-  // /// An `Arc<Stock>` instance.
-  // pub fn arc_stock<Str: Into<String>>(symbol: Str, name: Str, current_price: f64) -> Arc<Stock> {
-  //   Arc::new(Stock::new(symbol, name, current_price))
-  // }
 }
-// ___________________________________________________________
+// _______________________________________________
+
+impl Display for Stock {
+  fn fmt(&self, format_stock: &mut Formatter<'_>) -> std::fmt::Result {
+    //   pub symbol: String,
+    //   pub name: String,
+    //   pub current_price: f64,
+    //   pub quantity_owned: i32,
+    write!(
+      format_stock,
+      "\nStock Symbol: ( {} )\
+      \nName: ( {} )\
+      \nCurrent Stock Price: {}\
+      \nQuantity Owned: ( {} )",
+      self.symbol,
+      self.name,
+      format_price_with_currency_str(
+        &Currency::USD,
+        format!("{:.2}", self.current_price)
+      ),
+      self.quantity_owned,
+    )
+  }
+}
+// _______________________________________________
+
+
 
 
 

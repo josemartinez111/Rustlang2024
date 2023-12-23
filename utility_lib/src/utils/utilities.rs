@@ -1,11 +1,13 @@
 // FILE: utils/utilities.rs
 // ____________________________________________________
 
-use std::fmt::Display;
+use std::fmt::{Display};
 use std::io::Error;
 
+use chrono::Local;
 use color_print::cprintln;
 use iso_currency::Currency;
+use rust_decimal::Decimal;
 use serde::Serialize;
 use yansi::{Color, Paint, Style};
 use yansi::Color::{Black, Blue, Magenta, Yellow};
@@ -25,11 +27,20 @@ pub fn code_spacer() {
 }
 // ____________________________________________________
 
+pub fn current_date() -> String {
+// Get the current local date and time
+  let now = Local::now();
+  // Format the date and time as "Sep 12, 2020, 12:34 PM"
+  let formatted_date: String = now.format("%b %d, %Y, %I:%M %p").to_string();
+  formatted_date
+}
+// ____________________________________________________
+
 pub fn color_format<Type: Display>(prefix: &str, data: Type) {
   cprintln!(
         "<bold, w!><u>{}</u></bold, w!>: <bold, b>{}</bold, b>",
         prefix,
-        data
+        data // This will now use the Display implementation
     );
 }
 // ____________________________________________________
@@ -63,7 +74,7 @@ pub fn to_json_with_prefix<Type: Serialize>(prefix: &str, data: &Type) -> Result
 // ____________________________________________________
 
 /// `format_price_with_currency_f64` Define a function to format the price with currency symbol
-pub fn format_price_with_currency_f64(currency: &Currency, price: f64) -> String {
+pub fn format_price_with_currency_f64(currency: &Currency, price: Decimal) -> String {
   let currency_symbol = currency.symbol().to_string();
   format!("{}{}", currency_symbol, price)
 }
