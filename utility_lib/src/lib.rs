@@ -6,8 +6,14 @@ pub use axum;
 // Has to export bcrypt to other projects with the `use` keyword instead of `mod`
 pub use bcrypt;
 // ____________________________________________________
+// Has to export chrono to other projects with the `use` keyword instead of `mod`
+pub use chrono;
+// ____________________________________________________
 // Has to export color_print to other projects with the `use` keyword instead of `mod`
 pub use color_print;
+// ____________________________________________________
+// Has to export iso_currency to other projects with the `use` keyword instead of `mod`
+pub use iso_currency;
 // ____________________________________________________
 // Has to export rand to other projects with the `use` keyword instead of `mod`
 pub use rand;
@@ -26,9 +32,7 @@ pub use serde_json;
 // ____________________________________________________
 // Has to export yansi to other projects with the `use` keyword instead of `mod`
 pub use yansi;
-// ____________________________________________________
-// Has to export iso_currency to other projects with the `use` keyword instead of `mod`
-pub use iso_currency;
+
 // ____________________________________________________
 pub mod utils;
 // ____________________________________________________
