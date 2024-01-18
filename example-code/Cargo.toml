@@ -5,12 +5,16 @@ edition = "2021"
 
 # declarations to be able to use multiple main files in a single project
 [[bin]]
-name = "ticket_example"
+name = "ticket_example" # main.rs for this app
 path = "src/concert_tickets/ticket_example.rs"
 
 [[bin]]
-name = "stock_app"
+name = "stock_app" # main.rs for this app
 path = "src/stock_trading_backend/stock_app.rs"
+
+[[bin]]
+name = "rust_data_sync_demo" # main.rs for this app
+path = "src/rust_data_sync_demo/data_sync_app.rs"
 
 [dependencies]
 # lib-tools import global utilities in the workspace for members
