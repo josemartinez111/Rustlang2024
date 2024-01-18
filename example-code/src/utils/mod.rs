@@ -1,13 +1,6 @@
-// FILE: models/audit_log.rs
+// FILE: utils/mod.rs
 // ___________________________________________________________
 
-
-use serde::{Deserialize, Serialize};
-
+pub mod rc_move;
 // ___________________________________________________________
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct AuditLog {
-
-}
 // ___________________________________________________________

@@ -4,7 +4,7 @@
 use std::fmt::{Display};
 use std::io::Error;
 
-use chrono::Local;
+use chrono::{DateTime, Local};
 use color_print::cprintln;
 use iso_currency::Currency;
 use rust_decimal::Decimal;
@@ -33,6 +33,15 @@ pub fn current_date() -> String {
   // Format the date and time as "Sep 12, 2020, 12:34 PM"
   let formatted_date: String = now.format("%b %d, %Y, %I:%M %p").to_string();
   formatted_date
+}
+
+pub fn current_date_to_str(date_str: &str) -> Result<DateTime<Local>, String> {
+  let parsed_date = DateTime::parse_from_str(date_str, "%b %d, %Y, %I:%M %p")
+    .map_err(|_| {
+      "Failed to parse date".to_string()
+    })?;
+
+  Ok(parsed_date.with_timezone(&Local))
 }
 // ____________________________________________________
 

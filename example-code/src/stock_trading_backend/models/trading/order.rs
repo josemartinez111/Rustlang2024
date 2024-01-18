@@ -13,9 +13,10 @@ use utility_lib::utils::utilities::{color_format, format_price_with_currency_str
 
 use crate::models::account::user::User;
 use crate::models::trading::stock::Stock;
+
 // ___________________________________________________________
 
-#[derive(Debug, Clone,Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Order {
   pub order_id: String,
   pub user_id: String,
@@ -84,27 +85,28 @@ impl Order {
       format!("{:.2}", total_cost),
     );
 
-    let stock_mutex = self.stock.to_owned();
-    
+    let stock = self.stock.to_owned();
+    let stock_to_json = stock.to_json_with_formatted_price();
+
     let order_details_result = format!(
       "Order ID: {}\
       \nUser ID: {}\
-      \nStock: ( {:?} )\
-      \nStock Symbol: ( {:?} )\
-      \nQuantity: {:?}\
+      \nStock: {:#?}\
+      \nStock Symbol: ( {} )\
+      \nQuantity: {}\
       \nPrice per share: {}\
       \nTotal cost: {}\
       \nStatus: {:?}
       \n\n( Quantity Owned ): {}",
       self.order_id,
       self.user_id,
-      stock_mutex,
-      stock_mutex.symbol,
+      stock_to_json.unwrap(),
+      stock.symbol,
       self.quantity,
       self.formatted_price,
       formatted_total_cost,
       self.status,
-      stock_mutex.quantity_owned
+      stock.quantity_owned
     );
 
     // custom color_format function

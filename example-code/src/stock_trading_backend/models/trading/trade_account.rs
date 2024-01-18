@@ -4,6 +4,7 @@
 use std::fmt::{Display, Formatter};
 use std::ops::Deref;
 use std::rc::Rc;
+use serde_json::{json, Value};
 
 use uuid::Uuid;
 
@@ -26,7 +27,7 @@ pub struct TradeAccount {
 impl TradeAccount {
   pub fn new(user: Rc<User>, balance: &Rc<f64>) -> Self {
     // Clone the Rc<User> to increase the reference count.
-    // This allows the original `user` to be used later without being moved.
+    // This allows the original `users` to be used later without being moved.
     let user_clone = Rc::clone(&user);
 
     Self {
@@ -41,20 +42,35 @@ impl TradeAccount {
 
 impl Display for TradeAccount {
   fn fmt(&self, format_trade_account: &mut Formatter<'_>) -> std::fmt::Result {
+    // Construct a JSON representation of the User
+    let user_json: Value = json!({
+            "id": self.user.id,
+            "username": self.user.username,
+            "email": self.user.email,
+            "token": self.user.token
+            // Not including pwd_hash for security reasons
+        });
+
+    // Convert the JSON value to a pretty-printed string
+    let pretty_user = serde_json::to_string_pretty(&user_json)
+      .unwrap_or_else(|_| "Failed to serialize users".to_string());
+
+    // Write the non-JSON parts
     write!(
       format_trade_account,
-      "\nUser: {:?}\
-      \nAccount ID: {}\
-      \nUser ID: {}\
-      \nBalance: {}\n",
-      self.user,
+      "\nAccount ID: {}\
+            \nUser ID: {}\
+            \nBalance: {}\n",
       self.account_id,
       self.user_id,
       format_price_with_currency_str(
         &Currency::USD,
         format!("{:.2}", self.balance),
       ),
-    )
+    )?;
+
+    // Write the JSON part separately
+    writeln!(format_trade_account, "User: {}", pretty_user)
   }
 }
 // ___________________________________________________________

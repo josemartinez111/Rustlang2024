@@ -1,4 +1,4 @@
-// FILE: stock_trading_backend/models/mod.rs
+// FILE: stock_trading_backend/models/lib
 // ____________________________________________________
 
 pub mod account {

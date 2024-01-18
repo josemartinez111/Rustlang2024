@@ -53,8 +53,10 @@ fn main() -> Result<Void, Error> {
   ];
 
   stocks.iter().for_each(|stock| {
-    match to_json_with_prefix("Stock", stock) {
-      Ok(_) => {} // the function itself prints the result
+    match stock.to_json_with_formatted_price() {
+      Ok(stock) => {
+        color_format("Stock", stock);
+      }
       Err(err) => eprintln!("Error converting stock to json: {}", err)
     }
   });
@@ -62,7 +64,6 @@ fn main() -> Result<Void, Error> {
 
   // Start with a Buy order
   let order_type = OrderStatus::Buy;
-  // Vec<Rc<RefCell<Stock>>>
   run_stock_order_example(&stocks, order_type);
   code_spacer(); // *******************************************************
 
@@ -98,14 +99,14 @@ fn main() -> Result<Void, Error> {
     apple_stock_refcell.borrow().current_price,
   );
 
-  // Create an AccountStatus instance for the user
+  // Create an AccountStatus instance for the users
   let account_status = AccountStatus::new(
     &acc_status_user.clone(),
     &Rc::new(acc_status_user_acc),
-    last_order,
+    &Rc::new(last_order),
   );
 
-  color_format("Testing Account Status", account_status.is_ok());
+  color_format("Testing Account Status", account_status.unwrap());
   code_spacer(); // *******************************************************
   // __________________________________________________
   format_print("_", 45);

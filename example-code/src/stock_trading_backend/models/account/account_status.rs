@@ -26,17 +26,14 @@ pub struct AccountStatus {
   pub last_login: String,
   pub balance: f64,
   pub stock_owned: HashMap<Stock, Quantity>,
-  pub last_purchase: Order,
+  pub last_purchase: Rc<Order>,
 }
 // ___________________________________________________________
 
 impl AccountStatus {
-  pub fn new(user_id_obj: &Rc<User>, trade_acc_balance_obj: &Rc<TradeAccount>, last_purchase: Order) -> Result<Self, Error> {
-    // Validate the user before creating object
-    match validate_user(user_id_obj, &trade_acc_balance_obj.user_id) {
-      Err(err) => return Err(err),
-      Ok(..) => {}
-    }
+  pub fn new(user_id_obj: &Rc<User>, trade_acc_balance_obj: &Rc<TradeAccount>, last_purchase_order_obj: &Rc<Order>) -> Result<Self, Error> {
+    // Validate the users before creating object
+    validate_user(user_id_obj, &trade_acc_balance_obj.user_id)?;
 
     let result = Self {
       user_id: user_id_obj.id.to_string(),
@@ -45,7 +42,7 @@ impl AccountStatus {
       // `Copy`, this operation copies the `f64` value. The `Rc` itself remains unchanged.
       balance: trade_acc_balance_obj.balance,
       stock_owned: HashMap::new(),
-      last_purchase,
+      last_purchase: Rc::clone(last_purchase_order_obj),
     };
 
     Ok(result)
